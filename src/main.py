@@ -29,7 +29,7 @@ async def pong(ctx):
 async def name(ctx) :
     await ctx.send(ctx.author)
 
-@bot.command()
+@bot.command() #Print status section with their member list
 async def count(ctx) :
     await ctx.send("**+++Online Members+++**")
     for member in ctx.guild.members :
@@ -48,7 +48,7 @@ async def count(ctx) :
         if (member.raw_status == "dnd") :
             await ctx.send(member.name)
 
-@bot.command() # TODO
+@bot.command() # NOT WORKING
 async def admin(ctx, message) :
     #if (not(ctx.guild.get_member(message))) :
     #    await ctx.send("Please give a valid username/mention.")
@@ -58,15 +58,16 @@ async def admin(ctx, message) :
         await ctx.send("Pipou")
     #Check nombre d'arg.Récupérer user. Verifier s'il existe. Creer role. Assigner role admin.
 
-@bot.command()
+@bot.command() #Hardcoded random xkcd, random link from xkcd kjept sending the same one through the bot.
 async def xkcd(ctx) :
     url = "https://xkcd.com/" + str(random.randint(1,2521))
     await ctx.send(url)
 
-@bot.command()
+@bot.command() # Allows to ban the first mentionned person.
 async def ban(ctx, message) :
-    id = ctx.message.raw_mentions[0]
-    await ctx.guild.ban(ctx.guild.get_member(id), reason="Bonne nuit mon petit !")
+    if (ctx.message.raw_mentions) :
+        id = ctx.message.raw_mentions[0]
+        await ctx.guild.ban(ctx.guild.get_member(id), reason="Bonne nuit mon petit !")
 
 
 bot.run(token)  # Starts the bot
